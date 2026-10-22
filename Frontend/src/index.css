@@ -1,0 +1,4 @@
+/* npm install -D tailwindcss @tailwindcss/vite */
+/* Also write your custom CSS below and in the vite.config.js */
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
