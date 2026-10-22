@@ -22,10 +22,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // CORS — Frontend ko allow karo
+
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://ai-career-companion-black.vercel.app",
+];
+
 app.use(cors({
-  origin:      process.env.CLIENT_URL || "http://localhost:5173",
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error(`Not allowed by CORS: ${origin}`));
+  },
   credentials: true,
 }));
+
 
 // ── Routes ────────────────────────────────────────────────
 app.use("/api/auth",     require("./routes/authRoutes"));
